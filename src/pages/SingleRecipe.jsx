@@ -43,58 +43,77 @@ const SingleRecipe = () => {
     }, []);
 
     return recipe ? (
-        <div className="w-full flex">
-            <div className="left w-1/2 p-2">
-                <h1 className="text-5xl font-black">{recipe.title}</h1>
-                <img className="h-[20vh]" src={recipe.image} alt="" />
-                <h1>{recipe.chef}</h1>
-                <p>{recipe.desc}</p>
+        <div className="w-full flex flex-col md:flex-row bg-gray-900 rounded-xl shadow-lg p-6 md:p-10 mt-8 max-w-4xl mx-auto gap-8">
+            <div className="left md:w-1/2 w-full flex flex-col items-center md:items-start gap-4">
+                <h1 className="text-4xl md:text-5xl font-black text-white-900 mb-2 text-center md:text-left">
+                    {recipe.title}
+                </h1>
+                <img
+                    className="h-[25vh] w-full object-cover rounded-lg shadow-md border border-gray-200"
+                    src={recipe.image}
+                    alt=""
+                />
+                <h2 className="text-lg font-semibold text-white-700">
+                    By {recipe.chef}
+                </h2>
+                <p className="text-white-600 text-base mt-2">{recipe.desc}</p>
             </div>
 
-            <form className="w-1/2 p-2" onSubmit={handleSubmit(SubmitHandler)}>
+            <form
+                className="md:w-1/2 w-full flex flex-col gap-4 bg-gray-200 rounded-lg shadow p-6"
+                onSubmit={handleSubmit(SubmitHandler)}
+            >
+                <label className="font-semibold text-gray-900">Image URL</label>
                 <input
-                    className="block border-b outline-0 p-2"
+                    className="block border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white text-gray-900"
                     {...register("image")}
                     type="url"
                     placeholder="Enter Image Url"
                 />
-                <small className="text-red-400">
-                    THis is how the error is shown
+                <small className="text-red-400 mb-2">
+                    Enter only image URL
                 </small>
+
+                <label className="font-semibold text-gray-900">Recipe Title</label>
                 <input
-                    className="block border-b outline-0 p-2"
+                    className="block border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white text-gray-900"
                     {...register("title")}
                     type="text"
                     placeholder="Recipe Title"
                 />
+
+                <label className="font-semibold text-gray-900">Chef Name</label>
                 <input
-                    className="block border-b outline-0 p-2"
+                    className="block border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white text-gray-900"
                     {...register("chef")}
                     type="text"
                     placeholder="Chef Name"
                 />
 
+                <label className="font-semibold text-gray-900">Description</label>
                 <textarea
-                    value={recipe.desc}
-                    className="block border-b outline-0 p-2"
+                    className="block border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white text-gray-900 min-h-[60px] resize-vertical"
                     {...register("desc")}
-                    placeholder="//start from here"
+                    placeholder="Start from here"
                 ></textarea>
 
+                <label className="font-semibold text-gray-900">Ingredients</label>
                 <textarea
-                    className="block border-b outline-0 p-2"
+                    className="block border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white text-gray-900 min-h-[60px] resize-vertical"
                     {...register("ingr")}
-                    placeholder="//write ingredients seperated by comma"
+                    placeholder="Write ingredients separated by comma"
                 ></textarea>
 
+                <label className="font-semibold text-gray-900">Instructions</label>
                 <textarea
-                    className="block border-b outline-0 p-2"
+                    className="block border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white text-gray-900 min-h-[60px] resize-vertical"
                     {...register("inst")}
-                    placeholder="//write instructions seperated by comma"
+                    placeholder="Write instructions separated by comma"
                 ></textarea>
 
+                <label className="font-semibold text-gray-900">Category</label>
                 <select
-                    className="block border-b outline-0 p-2"
+                    className="block border border-gray-300 rounded-md px-4 py-2 bg-white text-gray-900 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
                     {...register("category")}
                 >
                     <option value="breakfast">Breakfast</option>
@@ -103,19 +122,25 @@ const SingleRecipe = () => {
                     <option value="dinner">Dinner</option>
                 </select>
 
-                <button className="mt-5 block bg-blue-900 px-4 py-2 rounded">
+                <button
+                    type="submit"
+                    className="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md py-3 transition-colors shadow"
+                >
                     Update Recipe
                 </button>
                 <button
+                    type="button"
                     onClick={DeleteHandler}
-                    className="mt-5 block bg-red-900 px-4 py-2 rounded"
+                    className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold rounded-md py-3 transition-colors shadow mt-2"
                 >
                     Delete Recipe
                 </button>
             </form>
         </div>
     ) : (
-        "Loading..."
+        <div className="flex justify-center items-center h-[50vh] text-xl text-gray-500">
+            Loading...
+        </div>
     );
 };
 
